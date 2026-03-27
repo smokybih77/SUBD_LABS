@@ -79,5 +79,59 @@ INSERT INTO [PLAN] (group_id, subject_id) VALUES
 
 
 
+
+
+INSERT INTO GROUPS(group_id, group_name, group_year) VALUES
+(4, '134', 1);
+
+UPDATE STUDENTS
+SET group_id = 4
+WHERE group_id = 1;
+
+
+
+
+DELETE FROM [PLAN]
+WHERE group_id = 1;
+
+DELETE FROM GROUPS
+WHERE group_id = 1;
+
+
+
+
+UPDATE SUBJECTS
+SET subject_hours = subject_hours + 30
+WHERE subject_name = N'Средства визуального программирования';
+
+UPDATE SUBJECTS
+SET subject_hours = subject_hours + 30
+WHERE subject_name = N'Объектно-ориентированное программирование';
+
+
+
+
+ALTER TABLE SUBJECTS
+ADD subject_control_form NVARCHAR(20);
+
+UPDATE SUBJECTS
+SET subject_control_form = N'Экзамен';
+
+UPDATE SUBJECTS
+SET subject_control_form = N'Зачет'
+WHERE subject_name = N'Основы алгоритмизации';
+
+
+
+
+ALTER TABLE STUDENTS
+DROP COLUMN student_dadname;
+
+
+
+
+
 SELECT * FROM STUDENTS;
 SELECT * FROM SUBJECTS;
+SELECT * FROM GROUPS;
+SELECT * FROM [PLAN]
