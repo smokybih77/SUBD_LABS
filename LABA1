@@ -1,0 +1,83 @@
+DROP TABLE IF EXISTS [PLAN];
+DROP TABLE IF EXISTS STUDENTS;
+DROP TABLE IF EXISTS SUBJECTS;
+DROP TABLE IF EXISTS GROUPS;
+
+
+
+CREATE TABLE GROUPS(
+  group_id INT PRIMARY KEY,
+  group_name NVARCHAR(20),
+  group_year INT
+);
+
+CREATE TABLE SUBJECTS(
+  subject_id INT PRIMARY KEY,
+  subject_name NVARCHAR(100),
+  subject_hours INT
+);
+
+CREATE TABLE STUDENTS(
+  student_id INT PRIMARY KEY,
+  student_name NVARCHAR(20) NOT NULL,
+  student_surname NVARCHAR(20) NOT NULL,
+  student_dadname NVARCHAR(20),
+  student_bday DATE,
+  group_id INT
+);  
+
+CREATE TABLE [PLAN](
+  group_id INT,
+  subject_id INT,
+  PRIMARY KEY (group_id, subject_id)
+);
+
+
+
+ALTER TABLE STUDENTS
+ADD CONSTRAINT students_groups
+FOREIGN KEY (group_id) REFERENCES GROUPS(group_id);
+
+ALTER TABLE [PLAN]
+ADD CONSTRAINT plan_subjects
+FOREIGN KEY (subject_id) REFERENCES SUBJECTS(subject_id);
+
+ALTER TABLE [PLAN]
+ADD CONSTRAINT plan_groups
+FOREIGN KEY (group_id) REFERENCES GROUPS(group_id);
+
+
+
+INSERT INTO GROUPS (group_id, group_name, group_year) VALUES
+(1, N'ПО135', 1),
+(2, N'ПО235', 2),
+(3, N'ПО335', 3);
+
+INSERT INTO SUBJECTS (subject_id, subject_name, subject_hours) VALUES
+(10, N'Физика', 200),
+(11, N'Математика', 120),
+(12, N'Основы алгоритмизации', 70),
+(13, N'Проектирование БД', 130),
+(14, N'Средства визуального программирования', 90),
+(15, N'Объектно-ориентированное программирование', 70);
+
+INSERT INTO STUDENTS (student_id, student_surname, student_name, student_dadname, student_bday, group_id) VALUES
+(100, N'Федоренко', N'П.', N'Р.', '1997-12-25', 1),
+(101, N'Зингел', N'О.', NULL, '1985-12-25', 1),
+(102, N'Савицкая', N'Н', NULL, '1987-09-22', 2),
+(103, N'Ковальчук', N'М.', N'Е.', '1992-06-17', 2),
+(104, N'Ковриго', N'Т.', N'Р.', '1992-05-13', 3),
+(105, N'Шарапо', N'Н.', NULL, '1992-08-14', 3);
+
+INSERT INTO [PLAN] (group_id, subject_id) VALUES
+(1, 10),
+(1, 11),
+(2, 12),
+(2, 13),
+(3, 14),
+(3, 15);
+
+
+
+SELECT * FROM STUDENTS;
+SELECT * FROM SUBJECTS;
